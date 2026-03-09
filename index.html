@@ -9,565 +9,201 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --gold: #C9A84C;
-    --gold-light: #E8C97A;
-    --dark: #0D0D0D;
-    --dark2: #141414;
-    --dark3: #1C1C1C;
-    --cream: #F5EDD8;
-    --text: #CCCCCC;
+    --accent: #2A6FDB;
+    --accent-light: #6FA3F8;
+    --dark: #090C12;
+    --dark3: #141D2E;
+    --cream: #E8EEF8;
+    --text: #9BAAC4;
   }
 
   html { scroll-behavior: smooth; }
+  body { background: var(--dark); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
 
-  body {
-    background: var(--dark);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    overflow-x: hidden;
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: 0.4;
   }
 
-  /* PASSWORD OVERLAY */
+  /* PASSWORD */
   #pw-overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--dark);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    position: fixed; inset: 0; background: var(--dark); z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
     transition: opacity 0.6s, visibility 0.6s;
   }
   #pw-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   .pw-box {
-    text-align: center;
-    padding: 3rem 2.5rem;
-    border: 1px solid rgba(201,168,76,0.2);
-    background: var(--dark3);
-    max-width: 380px;
-    width: 90%;
-    position: relative;
+    text-align: center; padding: 3rem 2.5rem;
+    border: 1px solid rgba(42,111,219,0.25); background: var(--dark3);
+    max-width: 380px; width: 90%; position: relative;
   }
   .pw-box::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
   }
-  .pw-icon { font-size: 2.5rem; margin-bottom: 1.2rem; display: block; }
-  .pw-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: var(--cream);
-    margin-bottom: 0.4rem;
-  }
-  .pw-sub {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 0.1em;
-    margin-bottom: 2rem;
-  }
+  .pw-icon { font-size: 2.8rem; margin-bottom: 1.2rem; display: block; }
+  .pw-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--cream); margin-bottom: 1.5rem; }
   .pw-input {
-    width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(201,168,76,0.25);
-    color: var(--cream);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 0.2em;
-    padding: 0.9rem 1.2rem;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.3s;
-    margin-bottom: 1rem;
+    width: 100%; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(42,111,219,0.3); color: var(--cream);
+    font-family: 'DM Sans', sans-serif; font-size: 1rem;
+    letter-spacing: 0.25em; padding: 0.9rem 1.2rem; text-align: center;
+    outline: none; transition: border-color 0.3s; margin-bottom: 1rem;
   }
-  .pw-input:focus { border-color: var(--gold); }
+  .pw-input:focus { border-color: var(--accent); }
   .pw-input::placeholder { letter-spacing: 0.1em; color: rgba(255,255,255,0.2); }
   .pw-btn {
-    width: 100%;
-    background: var(--gold);
-    color: var(--dark);
-    border: none;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    padding: 0.9rem;
-    cursor: pointer;
-    transition: background 0.3s;
+    width: 100%; background: var(--accent); color: #fff; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.25em; text-transform: uppercase; padding: 0.9rem;
+    cursor: pointer; transition: background 0.3s;
   }
-  .pw-btn:hover { background: var(--gold-light); }
-  .pw-error {
-    margin-top: 0.8rem;
-    font-size: 0.75rem;
-    color: #e07070;
-    letter-spacing: 0.1em;
-    min-height: 1.2em;
-  }
-
-  /* NOISE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.4;
-  }
+  .pw-btn:hover { background: var(--accent-light); }
+  .pw-error { margin-top: 0.8rem; font-size: 0.75rem; color: #e07070; letter-spacing: 0.1em; min-height: 1.2em; }
 
   /* NAV */
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
     padding: 1.2rem 3rem;
-    background: rgba(13,13,13,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201,168,76,0.15);
+    background: rgba(9,12,18,0.88); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(42,111,219,0.12);
   }
-
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-    font-style: italic;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-
-  .nav-links a:hover { color: var(--gold); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--accent-light); letter-spacing: 0.1em; font-style: italic; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: var(--text); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--accent-light); }
 
   /* HERO */
   .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    padding: 2rem;
-    overflow: hidden;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    position: relative; padding: 2rem; overflow: hidden;
   }
-
   .hero-bg {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.05) 0%, transparent 60%),
-      radial-gradient(ellipse 30% 30% at 80% 20%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(42,111,219,0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(42,111,219,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 30% at 80% 20%, rgba(42,111,219,0.05) 0%, transparent 60%);
   }
-
-  .hero-tag {
-    font-size: 0.7rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.3s forwards;
-  }
-
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(4rem, 12vw, 9rem);
-    font-weight: 900;
-    line-height: 0.95;
-    color: var(--cream);
-    letter-spacing: -0.02em;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.5s forwards;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold);
-    display: block;
-  }
-
-  .hero-sub {
-    font-size: 0.85rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-top: 1.8rem;
-    color: rgba(255,255,255,0.4);
-    opacity: 0;
-    animation: fadeUp 0.9s 0.7s forwards;
-  }
-
+  .hero-tag { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.3s forwards; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(4rem, 12vw, 9rem); font-weight: 900; line-height: 0.95; color: var(--cream); letter-spacing: -0.02em; opacity: 0; animation: fadeUp 0.9s 0.5s forwards; }
+  .hero h1 em { font-style: italic; color: var(--accent-light); display: block; }
+  .hero-sub { font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 1.8rem; color: rgba(255,255,255,0.4); opacity: 0; animation: fadeUp 0.9s 0.7s forwards; }
   .hero-date-badge {
-    margin-top: 3rem;
-    display: inline-flex;
-    gap: 2rem;
-    align-items: center;
-    border: 1px solid rgba(201,168,76,0.3);
-    padding: 0.9rem 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.9s forwards;
+    margin-top: 3rem; display: inline-flex; gap: 2rem; align-items: center;
+    border: 1px solid rgba(42,111,219,0.3); padding: 0.9rem 2.5rem;
+    opacity: 0; animation: fadeUp 0.9s 0.9s forwards;
   }
+  .hero-date-badge span { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-light); }
+  .hero-date-badge .sep { width: 1px; height: 20px; background: rgba(42,111,219,0.3); }
+  .scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0; animation: fadeUp 1s 1.4s forwards; }
+  .scroll-hint span { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .scroll-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(42,111,219,0.7), transparent); animation: scrollPulse 2s infinite; }
 
-  .hero-date-badge span {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold-light);
-  }
-
-  .hero-date-badge .sep {
-    width: 1px;
-    height: 20px;
-    background: rgba(201,168,76,0.3);
-  }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0;
-    animation: fadeUp 1s 1.4s forwards;
-  }
-
-  .scroll-hint span {
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-  }
-
-  .scroll-arrow {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
-    animation: scrollPulse 2s infinite;
-  }
+  /* SECTIONS */
+  .section { padding: 7rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: rgba(42,111,219,0.2); }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); color: var(--cream); margin-bottom: 3rem; line-height: 1.15; }
 
   /* COUNTDOWN */
-  .section {
-    padding: 7rem 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+  .countdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .countdown-unit { background: var(--dark3); border: 1px solid rgba(42,111,219,0.15); padding: 2.5rem 1rem; text-align: center; position: relative; overflow: hidden; }
+  .countdown-unit::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+  .countdown-number { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; color: var(--accent-light); line-height: 1; display: block; }
+  .countdown-label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 0.6rem; display: block; }
 
-  .section-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+  .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(42,111,219,0.2), transparent); }
 
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(201,168,76,0.2);
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    color: var(--cream);
-    margin-bottom: 3rem;
-    line-height: 1.15;
-  }
-
-  .countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-  }
-
-  .countdown-unit {
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.15);
-    padding: 2.5rem 1rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .countdown-unit::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-
-  .countdown-number {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 700;
-    color: var(--gold);
-    line-height: 1;
-    display: block;
-  }
-
-  .countdown-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-    margin-top: 0.6rem;
-    display: block;
-  }
-
-  /* DIVIDER */
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent);
-    margin: 0 auto;
-  }
-
-  /* TIMELINE / ABLAUF */
-  .timeline {
-    position: relative;
-    padding-left: 2.5rem;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.5rem;
-    bottom: 0.5rem;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1));
-  }
-
-  .timeline-item {
-    position: relative;
-    padding: 0 0 3rem 2.5rem;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.6s;
-  }
-
-  .timeline-item.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .timeline-dot {
-    position: absolute;
-    left: -2.5rem;
-    top: 0.35rem;
-    width: 10px;
-    height: 10px;
-    background: var(--gold);
-    border-radius: 50%;
-    border: 2px solid var(--dark);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
-  }
-
-  .timeline-time {
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.4rem;
-  }
-
-  .timeline-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    color: var(--cream);
-    margin-bottom: 0.4rem;
-  }
-
-  .timeline-desc {
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.7;
-  }
-
-  .timeline-emoji {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
+  /* TIMELINE */
+  .day-header { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--accent-light); margin: 3rem 0 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .day-header::after { content: ''; flex: 1; height: 1px; background: rgba(42,111,219,0.2); }
+  .timeline { position: relative; padding-left: 2.5rem; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0.5rem; width: 1px; background: linear-gradient(to bottom, var(--accent), rgba(42,111,219,0.1)); }
+  .timeline-item { position: relative; padding: 0 0 2.5rem 2.5rem; opacity: 0; transform: translateX(-20px); transition: all 0.6s; }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot { position: absolute; left: -2.5rem; top: 0.35rem; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; border: 2px solid var(--dark); box-shadow: 0 0 0 3px rgba(42,111,219,0.2); }
+  .timeline-time { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 0.3rem; }
+  .timeline-title-el { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--cream); margin-bottom: 0.2rem; }
+  .timeline-desc { font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.6; }
+  .timeline-emoji { font-size: 1.3rem; margin-bottom: 0.4rem; display: block; }
 
   /* INFO CARDS */
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .info-card { background: var(--dark3); border: 1px solid rgba(42,111,219,0.12); padding: 2rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+  .info-card:hover { border-color: rgba(42,111,219,0.4); transform: translateY(-4px); }
+  .info-card-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .info-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 0.5rem; }
+  .info-card p { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+  .info-card .detail { margin-top: 0.8rem; font-size: 0.8rem; color: var(--accent-light); }
+  .info-card a { color: var(--accent-light); text-decoration: none; }
+  .info-card a:hover { text-decoration: underline; }
 
-  .info-card {
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.12);
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
+  /* KOSTEN TRACKER */
+  .kosten-section { margin-top: 1rem; }
+  .kosten-input-row { display: grid; grid-template-columns: 1fr 1fr 140px auto; gap: 0.5rem; margin-bottom: 0.8rem; align-items: center; }
+  .kosten-input {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(42,111,219,0.25);
+    color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+    padding: 0.6rem 0.8rem; outline: none; transition: border-color 0.3s; width: 100%;
   }
-
-  .info-card:hover {
-    border-color: rgba(201,168,76,0.35);
-    transform: translateY(-4px);
-  }
-
-  .info-card-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    display: block;
-  }
-
-  .info-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--cream);
-    margin-bottom: 0.5rem;
-  }
-
-  .info-card p {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.7;
-  }
-
-  .info-card .detail {
-    margin-top: 0.8rem;
-    font-size: 0.8rem;
-    color: var(--gold-light);
-    letter-spacing: 0.05em;
-  }
+  .kosten-input:focus { border-color: var(--accent); }
+  .kosten-input::placeholder { color: rgba(255,255,255,0.25); }
+  .kosten-add-btn { background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; cursor: pointer; transition: background 0.3s; white-space: nowrap; height: 100%; }
+  .kosten-add-btn:hover { background: var(--accent-light); }
+  .kosten-list { margin-top: 0.8rem; }
+  .kosten-entry { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(42,111,219,0.1); font-size: 0.82rem; gap: 0.5rem; }
+  .kosten-entry-info { flex: 1; }
+  .kosten-entry-who { color: var(--accent-light); font-weight: 500; }
+  .kosten-entry-what { color: rgba(255,255,255,0.4); font-size: 0.78rem; }
+  .kosten-entry-amount { color: var(--cream); font-weight: 600; white-space: nowrap; }
+  .kosten-del { color: rgba(255,255,255,0.2); cursor: pointer; font-size: 0.9rem; background: none; border: none; padding: 0 0.2rem; transition: color 0.2s; }
+  .kosten-del:hover { color: #e07070; }
+  .kosten-total { margin-top: 1rem; font-size: 0.85rem; color: var(--cream); display: flex; justify-content: space-between; padding-top: 0.7rem; border-top: 1px solid rgba(42,111,219,0.2); }
+  .kosten-total .total-num { color: var(--accent-light); font-weight: 600; }
+  .kosten-empty { font-size: 0.8rem; color: rgba(255,255,255,0.2); padding: 0.5rem 0; }
 
   /* GALLERY */
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto auto;
-    gap: 0.8rem;
-  }
-
-  .gallery-item {
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.1);
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 0.3s;
-  }
-
-  .gallery-item:hover { border-color: rgba(201,168,76,0.4); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+  .gallery-item { background: var(--dark3); border: 1px solid rgba(42,111,219,0.1); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; transition: border-color 0.3s; }
+  .gallery-item:hover { border-color: rgba(42,111,219,0.4); }
   .gallery-item:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; min-height: 300px; }
-
-  .gallery-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-    color: rgba(255,255,255,0.2);
-  }
-
+  .gallery-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; color: rgba(255,255,255,0.2); }
   .gallery-placeholder span:first-child { font-size: 2.5rem; }
+  .gallery-placeholder span:last-child { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .gallery-upload-hint { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: rgba(255,255,255,0.2); line-height: 1.7; }
 
-  .gallery-placeholder span:last-child {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
+  footer { text-align: center; padding: 4rem 2rem; border-top: 1px solid rgba(42,111,219,0.1); }
+  .footer-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent-light); font-style: italic; margin-bottom: 0.5rem; }
+  footer p { font-size: 0.75rem; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; text-transform: uppercase; }
 
-  .gallery-upload-hint {
-    text-align: center;
-    margin-top: 1.5rem;
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.25);
-    line-height: 1.7;
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scrollPulse { 0%,100% { opacity:0.4; } 50% { opacity:1; } }
 
-  /* FOOTER */
-  footer {
-    text-align: center;
-    padding: 4rem 2rem;
-    border-top: 1px solid rgba(201,168,76,0.1);
-    position: relative;
-  }
-
-  footer .footer-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    color: var(--gold);
-    font-style: italic;
-    margin-bottom: 0.5rem;
-  }
-
-  footer p {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.2);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.4; transform: scaleY(1); }
-    50% { opacity: 1; transform: scaleY(1.2); }
-  }
-
-  /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
-    .countdown-grid { grid-template-columns: repeat(2, 1fr); }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .countdown-grid { grid-template-columns: repeat(2,1fr); }
+    .gallery-grid { grid-template-columns: repeat(2,1fr); }
     .gallery-item:first-child { grid-column: span 2; }
     .section { padding: 5rem 1.5rem; }
+    .kosten-input-row { grid-template-columns: 1fr 1fr; }
+    .kosten-input-row .kosten-add-btn { grid-column: span 2; }
+    .kosten-input-row input:nth-child(3) { grid-column: span 2; }
   }
 </style>
 </head>
 <body>
 
-<!-- PASSWORD OVERLAY -->
+<!-- PASSWORD -->
 <div id="pw-overlay">
   <div class="pw-box">
-    <span class="pw-icon">🔐</span>
+    <span class="pw-icon">🍆</span>
     <h2 class="pw-title">Nur für die Crew</h2>
-    <p class="pw-sub">Passwort eingeben um weiterzukommen</p>
     <input class="pw-input" type="password" id="pw-input" placeholder="Passwort..." autocomplete="off" />
     <button class="pw-btn" onclick="checkPassword()">Rein da →</button>
     <p class="pw-error" id="pw-error"></p>
@@ -580,6 +216,7 @@
     <li><a href="#countdown">Countdown</a></li>
     <li><a href="#ablauf">Programm</a></li>
     <li><a href="#infos">Infos</a></li>
+    <li><a href="#kosten">Kosten</a></li>
     <li><a href="#galerie">Galerie</a></li>
   </ul>
 </nav>
@@ -587,13 +224,13 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <p class="hero-tag">Junggesellenabschied · 2025</p>
+  <p class="hero-tag">Junggesellenabschied · 17.–19. Mai 2025</p>
   <h1>Auf<br><em>Julian.</em></h1>
   <p class="hero-sub">Der letzte Abend in Freiheit</p>
   <div class="hero-date-badge">
-    <span>📍 TBA</span>
+    <span>📍 Warschau</span>
     <div class="sep"></div>
-    <span>📅 Datum eintragen</span>
+    <span>📅 17.–19. Mai 2025</span>
     <div class="sep"></div>
     <span>🥂 Cheers!</span>
   </div>
@@ -608,72 +245,48 @@
 <!-- COUNTDOWN -->
 <section class="section" id="countdown">
   <div class="section-label">Die Uhr läuft</div>
-  <h2 class="section-title">Noch wie lange<br>bis zum großen Tag?</h2>
+  <h2 class="section-title">Warschau wartet.</h2>
   <div class="countdown-grid">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="cd-days">--</span>
-      <span class="countdown-label">Tage</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="cd-hours">--</span>
-      <span class="countdown-label">Stunden</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="cd-mins">--</span>
-      <span class="countdown-label">Minuten</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="cd-secs">--</span>
-      <span class="countdown-label">Sekunden</span>
-    </div>
+    <div class="countdown-unit"><span class="countdown-number" id="cd-days">--</span><span class="countdown-label">Tage</span></div>
+    <div class="countdown-unit"><span class="countdown-number" id="cd-hours">--</span><span class="countdown-label">Stunden</span></div>
+    <div class="countdown-unit"><span class="countdown-number" id="cd-mins">--</span><span class="countdown-label">Minuten</span></div>
+    <div class="countdown-unit"><span class="countdown-number" id="cd-secs">--</span><span class="countdown-label">Sekunden</span></div>
   </div>
-  <p style="margin-top:1.5rem; font-size:0.75rem; color:rgba(255,255,255,0.2); letter-spacing:0.1em;">
-    ✏️ Datum anpassen: Variable <code style="color:var(--gold)">JGA_DATE</code> im Script ändern
-  </p>
 </section>
 
 <div class="divider"></div>
 
-<!-- ABLAUF -->
+<!-- PROGRAMM -->
 <section class="section" id="ablauf">
   <div class="section-label">Das Programm</div>
-  <h2 class="section-title">Ein Tag für<br>die Ewigkeit.</h2>
+  <h2 class="section-title">3 Tage Warschau.</h2>
+
+  <h3 class="day-header">Tag 1 · Samstag, 17. Mai</h3>
   <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">12:00 Uhr</div>
-      <span class="timeline-emoji">☀️</span>
-      <h3 class="timeline-title">Treffpunkt & Begrüßung</h3>
-      <p class="timeline-desc">Alle kommen zusammen, der Ehrengast ahnt noch nichts. Erste Drinks, letzter Moment der Normalität.</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">14:00 Uhr</div>
-      <span class="timeline-emoji">🎮</span>
-      <h3 class="timeline-title">Activity #1</h3>
-      <p class="timeline-desc">Hier kommt eure erste Aktion rein – Paintball, Escape Room, Gokart, was auch immer ihr plant!</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">18:00 Uhr</div>
-      <span class="timeline-emoji">🍽️</span>
-      <h3 class="timeline-title">Gemeinsames Abendessen</h3>
-      <p class="timeline-desc">Stärkt euch für den Abend. Restaurant oder BBQ – Hauptsache ordentlich gegessen.</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">21:00 Uhr</div>
-      <span class="timeline-emoji">🥂</span>
-      <h3 class="timeline-title">Bar-Hopping & Nachtleben</h3>
-      <p class="timeline-desc">Die Nacht gehört euch. Bars, Clubs, Karaoke – es wird Legenden geben, die nie jemand erzählen darf.</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">??? Uhr</div>
-      <span class="timeline-emoji">🌅</span>
-      <h3 class="timeline-title">Irgendwann danach</h3>
-      <p class="timeline-desc">Was auch immer danach kommt – es war definitiv Julians schuld.</p>
-    </div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">12:30 Uhr</div><span class="timeline-emoji">✈️</span><h3 class="timeline-title-el">Ankunft Flughafen Warschau & erste Challenge</h3><p class="timeline-desc">Alle landen, die erste Challenge wartet bereits. Warschau, wir kommen.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🍔</span><h3 class="timeline-title-el">Mittagessen · Food Hall Browary</h3><p class="timeline-desc">Erste Stärkung in einer der besten Food Halls der Stadt.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">16:00 Uhr</div><span class="timeline-emoji">🏠</span><h3 class="timeline-title-el">Check-In Unterkunft</h3><p class="timeline-desc">Blue House Warsaw – Gepäck abwerfen, frisch machen, durchatmen.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🗺️</span><h3 class="timeline-title-el">Stadttour Warschau</h3><p class="timeline-desc">Die Stadt entdecken – Details folgen.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">19:00 Uhr</div><span class="timeline-emoji">🍽️</span><h3 class="timeline-title-el">Abendessen · Przegryz</h3><p class="timeline-desc">Polnische Küche auf hohem Niveau. Gut essen, bevor die Nacht anfängt.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">21:00 Uhr</div><span class="timeline-emoji">🍺</span><h3 class="timeline-title-el">Kneipentour</h3><p class="timeline-desc">Mit ungewissem Ende. Was auch immer passiert – es bleibt unter uns.</p></div>
+  </div>
+
+  <h3 class="day-header">Tag 2 · Sonntag, 18. Mai</h3>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">ab 10:00 Uhr</div><span class="timeline-emoji">☕</span><h3 class="timeline-title-el">Frühstück · Bulke przez Bibulke</h3><p class="timeline-desc">Sanft reinkommen. Kaffee. Brötchen. Wahrscheinlich ein paar Schmerzmittel.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">11:00 Uhr</div><span class="timeline-emoji">🎯</span><h3 class="timeline-title-el">Schießstand oder Paintball</h3><p class="timeline-desc">Action pur. Wer am Ende noch steht, hat gewonnen.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🥗</span><h3 class="timeline-title-el">Mittagessen · Hala Koszyki</h3><p class="timeline-desc">Warschaus legendäre Markthalle – Auswahl ohne Ende.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">15:00 Uhr</div><span class="timeline-emoji">🚌</span><h3 class="timeline-title-el">Stadttour (Bus oder Rad)</h3><p class="timeline-desc">Die andere Seite Warschaus – entspannt oder sportlich.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🏃</span><h3 class="timeline-title-el">Adventure Park · Tep Factor</h3><p class="timeline-desc">Klettern, Springen, Überleben. Wer Angst hat, verliert.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">19:00 Uhr</div><span class="timeline-emoji">🍕</span><h3 class="timeline-title-el">Abendessen · Va Bene</h3><p class="timeline-desc">Italiano in Warschau – gut essen vor Runde zwei.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">21:00 Uhr</div><span class="timeline-emoji">🌃</span><h3 class="timeline-title-el">Kneipentour</h3><p class="timeline-desc">Nochmal. Mit ungewissem Ende. Warschau schläft sowieso nicht.</p></div>
+  </div>
+
+  <h3 class="day-header">Tag 3 · Montag, 19. Mai</h3>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">12:00 Uhr</div><span class="timeline-emoji">🧳</span><h3 class="timeline-title-el">Auschecken & spätes Frühstück</h3><p class="timeline-desc">Koffer packen, letzter Kaffee, letzte Geschichten. Die Zimmer sind sicher sauber.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🌊</span><h3 class="timeline-title-el">Entspannen an der Weichsel</h3><p class="timeline-desc">Am Fluss die letzten Stunden genießen. Chillen, reflektieren, Fotos machen.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🛫</span><h3 class="timeline-title-el">Rückflug</h3><p class="timeline-desc">Warschau war großartig. Julian ist verlobt. Das war's.</p></div>
   </div>
 </section>
 
@@ -685,40 +298,46 @@
   <h2 class="section-title">Alles was ihr<br>wissen müsst.</h2>
   <div class="info-grid">
     <div class="info-card">
+      <span class="info-card-icon">✈️</span>
+      <h3>Flugdaten</h3>
+      <p>Hier die Flugdaten eintragen:<br>Flugnummer, Abflugzeit,<br>Ankunftszeit &amp; Airline.</p>
+      <p class="detail">→ Flugdaten noch nicht eingetragen</p>
+    </div>
+    <div class="info-card">
+      <span class="info-card-icon">🏠</span>
+      <h3>Unterkunft</h3>
+      <p>Blue House Warsaw<br>ul. Warynskiego 9/39<br>Śródmieście, 00-655<br>Warschau, Polen</p>
+      <p class="detail"><a href="https://maps.google.com/?q=ul+Warynskiego+9,+00-655+Warszawa" target="_blank">→ In Google Maps öffnen ↗</a></p>
+    </div>
+    <div class="info-card">
       <span class="info-card-icon">📍</span>
-      <h3>Treffpunkt</h3>
-      <p>Hier könnt ihr den genauen Ort eintragen. Adresse, Unterkunft, Startpunkt – alles rein!</p>
-      <p class="detail">→ Adresse eintragen</p>
+      <h3>Treffpunkt Flughafen</h3>
+      <p>Warschau Chopin Airport (WAW) – Treffen im Ankunftsbereich Terminal A, nach dem Gepäckband.</p>
+      <p class="detail"><a href="https://maps.google.com/?q=Warsaw+Chopin+Airport" target="_blank">→ Flughafen auf Maps ↗</a></p>
     </div>
-    <div class="info-card">
-      <span class="info-card-icon">📅</span>
-      <h3>Datum & Uhrzeit</h3>
-      <p>Der große Tag. Tragt hier das finale Datum und die Startzeit ein, damit alle Bescheid wissen.</p>
-      <p class="detail">→ Datum eintragen</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KOSTEN -->
+<section class="section" id="kosten">
+  <div class="section-label">Finanzen</div>
+  <h2 class="section-title">Wer hat was<br>bezahlt?</h2>
+  <div style="background:var(--dark3); border:1px solid rgba(42,111,219,0.12); padding:2rem;">
+    <p style="font-size:0.85rem;color:rgba(255,255,255,0.45);margin-bottom:1.5rem;line-height:1.7;">
+      Tragt hier alle Ausgaben ein, damit am Ende fair abgerechnet werden kann. Die Einträge bleiben nur solange die Seite offen ist – für dauerhafte Speicherung Screenshot machen oder in die Gruppe schreiben.
+    </p>
+    <div class="kosten-input-row">
+      <input class="kosten-input" id="kosten-name" placeholder="Name (wer hat bezahlt?)" />
+      <input class="kosten-input" id="kosten-desc" placeholder="Wofür? (z.B. Abendessen)" />
+      <input class="kosten-input" id="kosten-amount" placeholder="Betrag in €" type="number" min="0" step="0.01" />
+      <button class="kosten-add-btn" onclick="addKosten()">+ Hinzufügen</button>
     </div>
-    <div class="info-card">
-      <span class="info-card-icon">👥</span>
-      <h3>Die Crew</h3>
-      <p>Hier könnt ihr die Namen der Teilnehmer aufführen, oder einfach „Die üblichen Verdächtigen" schreiben.</p>
-      <p class="detail">→ Namen eintragen</p>
-    </div>
-    <div class="info-card">
-      <span class="info-card-icon">💰</span>
-      <h3>Kostenbeitrag</h3>
-      <p>Was kommt auf jeden zu? Tragt hier den ungefähren Beitrag ein und wie bezahlt werden soll.</p>
-      <p class="detail">→ Betrag eintragen</p>
-    </div>
-    <div class="info-card">
-      <span class="info-card-icon">🎒</span>
-      <h3>Was mitbringen?</h3>
-      <p>Kleidung, Schlafsack, Ausweis? Sagt den Leuten was sie einpacken sollen – und was Julian NICHT wissen darf.</p>
-      <p class="detail">→ Liste eintragen</p>
-    </div>
-    <div class="info-card">
-      <span class="info-card-icon">📞</span>
-      <h3>Kontakt</h3>
-      <p>Bei Fragen an wen wenden? Tragt hier den Hauptorganisator ein – ohne ihn wäre das alles gar nicht möglich.</p>
-      <p class="detail">→ Name / Nummer eintragen</p>
+    <div id="kosten-list"><p class="kosten-empty">Noch keine Einträge.</p></div>
+    <div class="kosten-total" id="kosten-total" style="display:none;">
+      <span>Gesamtausgaben</span>
+      <span class="total-num" id="kosten-total-amount">0,00 €</span>
     </div>
   </div>
 </section>
@@ -730,100 +349,100 @@
   <div class="section-label">Erinnerungen</div>
   <h2 class="section-title">Die Galerie.</h2>
   <div class="gallery-grid">
-    <div class="gallery-item">
-      <div class="gallery-placeholder">
-        <span>📸</span>
-        <span>Hauptfoto</span>
-      </div>
-    </div>
-    <div class="gallery-item">
-      <div class="gallery-placeholder"><span>🍺</span></div>
-    </div>
-    <div class="gallery-item">
-      <div class="gallery-placeholder"><span>🎉</span></div>
-    </div>
-    <div class="gallery-item">
-      <div class="gallery-placeholder"><span>🚗</span></div>
-    </div>
-    <div class="gallery-item">
-      <div class="gallery-placeholder"><span>🏆</span></div>
-    </div>
-    <div class="gallery-item">
-      <div class="gallery-placeholder"><span>🌙</span></div>
-    </div>
+    <div class="gallery-item"><div class="gallery-placeholder"><span>📸</span><span>Hauptfoto</span></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder"><span>🍺</span></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder"><span>🎉</span></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder"><span>🏙️</span></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder"><span>🏆</span></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder"><span>🌙</span></div></div>
   </div>
-  <p class="gallery-upload-hint">
-    Fotos lassen sich direkt im HTML-Code durch <code style="color:var(--gold)">&lt;img src="..."&gt;</code> Tags ersetzen.<br>
-    Nach dem JGA einfach die echten Bilder einfügen!
-  </p>
+  <p class="gallery-upload-hint">Nach dem JGA einfach die echten Bilder per <code style="color:var(--accent-light)">&lt;img src="..."&gt;</code> einfügen.</p>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p class="footer-title">Auf Julian. 🥂</p>
-  <p style="margin-top:1rem;">Eines Tages wirst du daran zurückdenken und lachen.</p>
+  <p style="margin-top:1rem;">Warschau · 17.–19. Mai 2025</p>
   <p style="margin-top:2rem; font-size:0.65rem;">Made with ❤️ von seinen Leuten</p>
 </footer>
 
 <script>
-  // =============================================
-  // ✏️ PASSWORT HIER ÄNDERN:
-  const PASSWORD = 'julian2025';
-  // =============================================
-
+  // PASSWORT
+  const PASSWORD = '1605';
   function checkPassword() {
     const input = document.getElementById('pw-input').value;
-    const error = document.getElementById('pw-error');
     if (input === PASSWORD) {
       document.getElementById('pw-overlay').classList.add('hidden');
     } else {
-      error.textContent = '❌ Falsches Passwort. Nochmal!';
+      document.getElementById('pw-error').textContent = '❌ Falsches Passwort. Nochmal!';
       document.getElementById('pw-input').value = '';
       document.getElementById('pw-input').focus();
     }
   }
+  document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
 
-  document.getElementById('pw-input').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') checkPassword();
-  });
-
-  // =============================================
-  // ✏️ HIER DAS JGA-DATUM ANPASSEN:
-  const JGA_DATE = new Date('2025-04-17T00:00:00');
-  // =============================================
-
+  // COUNTDOWN – 17. Mai 2025
+  const JGA_DATE = new Date('2025-05-17T00:00:00');
   function updateCountdown() {
-    const now = new Date();
-    const diff = JGA_DATE - now;
-
+    const diff = JGA_DATE - new Date();
     if (diff <= 0) {
-      document.getElementById('cd-days').textContent = '🎉';
-      document.getElementById('cd-hours').textContent = '🎉';
-      document.getElementById('cd-mins').textContent = '🎉';
-      document.getElementById('cd-secs').textContent = '🎉';
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent = '🎉');
       return;
     }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
-    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-    document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
-    document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+    document.getElementById('cd-days').textContent  = String(Math.floor(diff/86400000)).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(Math.floor(diff%86400000/3600000)).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(Math.floor(diff%3600000/60000)).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(Math.floor(diff%60000/1000)).padStart(2,'0');
   }
-
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
-  // Scroll-Animationen für Timeline
-  const observer = new IntersectionObserver((entries) => {
+  // SCROLL ANIMATION
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.2 });
-
+  }, { threshold: 0.15 });
   document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
+
+  // KOSTEN TRACKER
+  let kostenList = [];
+  function addKosten() {
+    const name   = document.getElementById('kosten-name').value.trim();
+    const desc   = document.getElementById('kosten-desc').value.trim();
+    const amount = parseFloat(document.getElementById('kosten-amount').value);
+    if (!name || !desc || isNaN(amount) || amount <= 0) {
+      alert('Bitte alle Felder ausfüllen und einen gültigen Betrag eingeben.');
+      return;
+    }
+    kostenList.push({ id: Date.now(), name, desc, amount });
+    ['kosten-name','kosten-desc','kosten-amount'].forEach(id => document.getElementById(id).value = '');
+    renderKosten();
+  }
+  function removeKosten(id) {
+    kostenList = kostenList.filter(k => k.id !== id);
+    renderKosten();
+  }
+  function renderKosten() {
+    const list = document.getElementById('kosten-list');
+    const totalEl = document.getElementById('kosten-total');
+    if (kostenList.length === 0) {
+      list.innerHTML = '<p class="kosten-empty">Noch keine Einträge.</p>';
+      totalEl.style.display = 'none';
+      return;
+    }
+    list.innerHTML = kostenList.map(k => `
+      <div class="kosten-entry">
+        <div class="kosten-entry-info">
+          <span class="kosten-entry-who">${k.name}</span>
+          <span style="color:rgba(255,255,255,0.3);margin:0 0.4rem;">–</span>
+          <span class="kosten-entry-what">${k.desc}</span>
+        </div>
+        <span class="kosten-entry-amount">${k.amount.toFixed(2).replace('.',',')} €</span>
+        <button class="kosten-del" onclick="removeKosten(${k.id})">✕</button>
+      </div>
+    `).join('');
+    const total = kostenList.reduce((s,k) => s + k.amount, 0);
+    document.getElementById('kosten-total-amount').textContent = total.toFixed(2).replace('.',',') + ' €';
+    totalEl.style.display = 'flex';
+  }
 </script>
 </body>
 </html>
