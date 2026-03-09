@@ -43,7 +43,7 @@
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
   }
-  .pw-icon { font-size: 2.8rem; margin-bottom: 1.2rem; display: block; }
+  .pw-icon svg { width: 80px; height: 80px; margin-bottom: 1rem; display: block; margin-left: auto; margin-right: auto; }
   .pw-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--cream); margin-bottom: 1.5rem; }
   .pw-input {
     width: 100%; background: rgba(255,255,255,0.04);
@@ -144,13 +144,8 @@
   .info-card a:hover { text-decoration: underline; }
 
   /* KOSTEN TRACKER */
-  .kosten-section { margin-top: 1rem; }
   .kosten-input-row { display: grid; grid-template-columns: 1fr 1fr 140px auto; gap: 0.5rem; margin-bottom: 0.8rem; align-items: center; }
-  .kosten-input {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(42,111,219,0.25);
-    color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
-    padding: 0.6rem 0.8rem; outline: none; transition: border-color 0.3s; width: 100%;
-  }
+  .kosten-input { background: rgba(255,255,255,0.04); border: 1px solid rgba(42,111,219,0.25); color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; padding: 0.6rem 0.8rem; outline: none; transition: border-color 0.3s; width: 100%; }
   .kosten-input:focus { border-color: var(--accent); }
   .kosten-input::placeholder { color: rgba(255,255,255,0.25); }
   .kosten-add-btn { background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; cursor: pointer; transition: background 0.3s; white-space: nowrap; height: 100%; }
@@ -167,54 +162,29 @@
   .kosten-total .total-num { color: var(--accent-light); font-weight: 600; }
   .kosten-empty { font-size: 0.8rem; color: rgba(255,255,255,0.2); padding: 0.5rem 0; }
 
-   /* GALLERY */
+  /* GALLERY */
   .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
-  .gallery-item {
-    background: var(--dark3); border: 1px solid rgba(42,111,219,0.1);
-    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-    overflow: hidden; cursor: pointer; transition: border-color 0.3s, transform 0.3s;
-    position: relative;
-  }
+  .gallery-item { background: var(--dark3); border: 1px solid rgba(42,111,219,0.1); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; transition: border-color 0.3s, transform 0.3s; position: relative; }
   .gallery-item:hover { border-color: rgba(42,111,219,0.5); transform: scale(1.01); }
   .gallery-item:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; min-height: 300px; }
   .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
   .gallery-item:hover img { transform: scale(1.05); }
-  .gallery-item .gallery-caption {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: linear-gradient(transparent, rgba(9,12,18,0.85));
-    padding: 1.5rem 0.8rem 0.6rem;
-    font-size: 0.75rem; color: rgba(255,255,255,0.7);
-    opacity: 0; transition: opacity 0.3s;
-  }
+  .gallery-item .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(9,12,18,0.85)); padding: 1.5rem 0.8rem 0.6rem; font-size: 0.75rem; color: rgba(255,255,255,0.7); opacity: 0; transition: opacity 0.3s; }
   .gallery-item:hover .gallery-caption { opacity: 1; }
   .gallery-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; color: rgba(255,255,255,0.15); }
   .gallery-placeholder span:first-child { font-size: 2.5rem; }
   .gallery-placeholder span:last-child { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; }
-  .gallery-upload-hint {
-    margin-top: 1.5rem; padding: 1.2rem 1.5rem;
-    background: var(--dark3); border: 1px dashed rgba(42,111,219,0.2);
-    font-size: 0.8rem; color: rgba(255,255,255,0.35); line-height: 2;
-  }
+  .gallery-upload-hint { margin-top: 1.5rem; padding: 1.2rem 1.5rem; background: var(--dark3); border: 1px dashed rgba(42,111,219,0.2); font-size: 0.8rem; color: rgba(255,255,255,0.35); line-height: 2; }
   .gallery-upload-hint code { color: var(--accent-light); background: rgba(42,111,219,0.1); padding: 0.1rem 0.4rem; border-radius: 2px; }
 
   /* LIGHTBOX */
-  #lightbox {
-    position: fixed; inset: 0; background: rgba(9,12,18,0.97);
-    z-index: 8888; display: flex; align-items: center; justify-content: center;
-    opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; cursor: zoom-out;
-  }
+  #lightbox { position: fixed; inset: 0; background: rgba(9,12,18,0.97); z-index: 8888; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; cursor: zoom-out; }
   #lightbox.open { opacity: 1; visibility: visible; }
   #lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; box-shadow: 0 0 80px rgba(0,0,0,0.9); }
-  #lightbox-close {
-    position: absolute; top: 1.5rem; right: 2rem;
-    color: rgba(255,255,255,0.4); font-size: 2rem; cursor: pointer;
-    background: none; border: none; transition: color 0.2s; line-height: 1;
-  }
+  #lightbox-close { position: absolute; top: 1.5rem; right: 2rem; color: rgba(255,255,255,0.4); font-size: 2rem; cursor: pointer; background: none; border: none; transition: color 0.2s; line-height: 1; }
   #lightbox-close:hover { color: #fff; }
-  #lightbox-caption {
-    position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-    font-size: 0.78rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; white-space: nowrap;
-  }
+  #lightbox-caption { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); font-size: 0.78rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; white-space: nowrap; }
+
   footer { text-align: center; padding: 4rem 2rem; border-top: 1px solid rgba(42,111,219,0.1); }
   .footer-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent-light); font-style: italic; margin-bottom: 0.5rem; }
   footer p { font-size: 0.75rem; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; text-transform: uppercase; }
@@ -237,41 +207,16 @@
 </head>
 <body>
 
- /* PASSWORD */
-  #pw-overlay {
-    position: fixed; inset: 0; background: var(--dark); z-index: 9999;
-    display: flex; align-items: center; justify-content: center;
-    transition: opacity 0.6s, visibility 0.6s;
-  }
-  #pw-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-  .pw-box {
-    text-align: center; padding: 3rem 2.5rem;
-    border: 1px solid rgba(42,111,219,0.25); background: var(--dark3);
-    max-width: 380px; width: 90%; position: relative;
-  }
-  .pw-box::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  }
-  .pw-icon svg { width: 80px; height: 80px; margin-bottom: 1rem; display: block; margin-left: auto; margin-right: auto; }
-  .pw-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--cream); margin-bottom: 1.5rem; }
-  .pw-input {
-    width: 100%; background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(42,111,219,0.3); color: var(--cream);
-    font-family: 'DM Sans', sans-serif; font-size: 1rem;
-    letter-spacing: 0.25em; padding: 0.9rem 1.2rem; text-align: center;
-    outline: none; transition: border-color 0.3s; margin-bottom: 1rem;
-  }
-  .pw-input:focus { border-color: var(--accent); }
-  .pw-input::placeholder { letter-spacing: 0.1em; color: rgba(255,255,255,0.2); }
-  .pw-btn {
-    width: 100%; background: var(--accent); color: #fff; border: none;
-    font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500;
-    letter-spacing: 0.25em; text-transform: uppercase; padding: 0.9rem;
-    cursor: pointer; transition: background 0.3s;
-  }
-  .pw-btn:hover { background: var(--accent-light); }
-  .pw-error { margin-top: 0.8rem; font-size: 0.75rem; color: #e07070; letter-spacing: 0.1em; min-height: 1.2em; }
+<!-- PASSWORD -->
+<div id="pw-overlay">
+  <div class="pw-box">
+    <div class="pw-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="#0e1520" stroke="#2a3a58" stroke-width="2"/><path d="M100 28 C58 28 34 55 34 85 C34 108 46 126 64 134 L64 152 L136 152 L136 134 C154 126 166 108 166 85 C166 55 142 28 100 28 Z" fill="#d4c9a0" stroke="#8a7a50" stroke-width="2.5"/><path d="M100 32 C62 32 38 57 38 85 C38 106 49 123 66 131" fill="none" stroke="#f0e8c0" stroke-width="1.5" opacity="0.5"/><ellipse cx="72" cy="100" rx="14" ry="10" fill="#e8ddb5" opacity="0.3"/><ellipse cx="128" cy="100" rx="14" ry="10" fill="#e8ddb5" opacity="0.3"/><path d="M64 152 L64 162 L136 162 L136 152 Z" fill="#c4b990" stroke="#8a7a50" stroke-width="2"/><rect x="68" y="152" width="13" height="14" rx="2" fill="#e8e0c0" stroke="#8a7a50" stroke-width="1.5"/><rect x="84" y="152" width="13" height="16" rx="2" fill="#e8e0c0" stroke="#8a7a50" stroke-width="1.5"/><rect x="100" y="152" width="13" height="16" rx="2" fill="#e8e0c0" stroke="#8a7a50" stroke-width="1.5"/><rect x="116" y="152" width="13" height="14" rx="2" fill="#e8e0c0" stroke="#8a7a50" stroke-width="1.5"/><line x1="64" y1="152" x2="136" y2="152" stroke="#8a7a50" stroke-width="1.5"/><path d="M93 118 Q100 112 107 118 L104 130 Q100 134 96 130 Z" fill="#1a1408" stroke="#8a7a50" stroke-width="1.2"/><ellipse cx="70" cy="88" rx="22" ry="20" fill="#1a1408" stroke="#8a7a50" stroke-width="2"/><ellipse cx="70" cy="88" rx="20" ry="18" fill="#120e04"/><ellipse cx="62" cy="81" rx="4" ry="3" fill="#2a2010" opacity="0.6"/><ellipse cx="130" cy="88" rx="22" ry="20" fill="#0e1a30" stroke="#8a7a50" stroke-width="2"/><ellipse cx="130" cy="88" rx="20" ry="18" fill="#0d1828"/><g transform="translate(130,88)"><path d="M-17 8 Q-10 5 0 8 Q10 5 17 8" fill="none" stroke="#4a90d0" stroke-width="1.5" stroke-linecap="round"/><path d="M-14 6 Q-13 2 -8 1 L8 1 Q13 2 14 6 Q8 14 0 15 Q-8 14 -14 6 Z" fill="#7a4a1a" stroke="#3a2008" stroke-width="1.2"/><path d="M-12 4 Q0 3 12 4" fill="none" stroke="#5a3010" stroke-width="0.7"/><path d="M-13 7 Q0 6 13 7" fill="none" stroke="#5a3010" stroke-width="0.7"/><rect x="-9" y="-1.5" width="18" height="3" rx="1" fill="#6a3d14" stroke="#3a2008" stroke-width="0.8"/><rect x="-1.5" y="-17" width="3" height="19" rx="0.5" fill="#5a3a10" stroke="#3a2008" stroke-width="0.7"/><rect x="-13" y="-13" width="26" height="2" rx="1" fill="#5a3a10" stroke="#3a2008" stroke-width="0.7"/><path d="M-12 -11 Q-11 -5 -10 -1 L0 -2.5 L10 -1 Q11 -5 12 -11 Z" fill="#e8dfc0" stroke="#c0b090" stroke-width="0.8"/><circle cx="0" cy="-7" r="3" fill="#2a1a08"/><circle cx="-1.2" cy="-7.8" r="0.8" fill="#e8dfc0"/><circle cx="1.2" cy="-7.8" r="0.8" fill="#e8dfc0"/><path d="M-1.2 -5.8 Q0 -4.8 1.2 -5.8" stroke="#e8dfc0" stroke-width="0.6" fill="none" stroke-linecap="round"/><rect x="1.5" y="-20" width="1.5" height="5" fill="#1a0808"/><path d="M3 -20 L9 -18 L3 -16 Z" fill="#1a0808"/><rect x="-6.5" y="-10" width="2" height="12" rx="0.5" fill="#5a3a10" stroke="#3a2008" stroke-width="0.6"/><rect x="-14" y="-7" width="15" height="1.8" rx="0.8" fill="#5a3a10" stroke="#3a2008" stroke-width="0.6"/><path d="M-13.5 -5 Q-12 0 -11 2 L-5.5 1 L-0.5 2 Q0 0 0 -5 Z" fill="#ddd5b5" stroke="#b8b090" stroke-width="0.6"/><line x1="-10" y1="0" x2="-20" y2="-8" stroke="#5a3a10" stroke-width="2" stroke-linecap="round"/><path d="M-10 0 L-20 -8 L-14 1 Z" fill="#ddd5b5" stroke="#b8b090" stroke-width="0.6" opacity="0.8"/><rect x="5" y="-7" width="2" height="9" rx="0.5" fill="#5a3a10" stroke="#3a2008" stroke-width="0.6"/><rect x="2" y="-5" width="9" height="1.5" rx="0.7" fill="#5a3a10" stroke="#3a2008" stroke-width="0.6"/><path d="M2.5 -3.5 Q3 1 4 2.5 L6 2 L10.5 2.5 Q11 1 10.5 -3.5 Z" fill="#ddd5b5" stroke="#b8b090" stroke-width="0.6"/><ellipse cx="0" cy="0" rx="19" ry="17" fill="none" stroke="#5a90c0" stroke-width="0.8" opacity="0.5"/></g><circle cx="100" cy="100" r="95" fill="none" stroke="#4a6a9a" stroke-width="1" opacity="0.5"/></svg></div>
+    <h2 class="pw-title">Nur für die Crew</h2>
+    <input class="pw-input" type="password" id="pw-input" placeholder="Passwort..." autocomplete="off" />
+    <button class="pw-btn" onclick="checkPassword()">Rein da →</button>
+    <p class="pw-error" id="pw-error"></p>
+  </div>
+</div>
 
 <nav>
   <div class="nav-logo">Julian's JGA</div>
@@ -287,13 +232,13 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <p class="hero-tag">Junggesellenabschied · 17.–19. Mai 2026</p>
+  <p class="hero-tag">Junggesellenabschied · 16.–18. Mai 2026</p>
   <h1>Auf<br><em>Julian.</em></h1>
   <p class="hero-sub">Za niezapomniany wieczór</p>
   <div class="hero-date-badge">
     <span>📍 Warschau</span>
     <div class="sep"></div>
-    <span>📅 17.–19. Mai 2026</span>
+    <span>📅 16.–18. Mai 2026</span>
     <div class="sep"></div>
     <span>🥂 Cheers!</span>
   </div>
@@ -328,27 +273,27 @@
   <div class="timeline">
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">12:30 Uhr</div><span class="timeline-emoji">✈️</span><h3 class="timeline-title-el">Ankunft Flughafen Warschau & erste Challenge</h3><p class="timeline-desc">Alle landen, die erste Challenge wartet bereits.</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🍔</span><h3 class="timeline-title-el">Mittagessen · Food Hall Browary</h3><p class="timeline-desc">piwo, pierogi i wódki.</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">16:00 Uhr</div><span class="timeline-emoji">🏠</span><h3 class="timeline-title-el">Check-In Unterkunft</h3><p class="timeline-desc">Blue House Warsaw – Gepäck abwerfen, Wasser trinken, nächste Challenge!.</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🗺️</span><h3 class="timeline-title-el">Kurze Tour durchs Viertel</h3><p class="timeline-desc">Zeit für 1-2 Challenges</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">16:00 Uhr</div><span class="timeline-emoji">🏠</span><h3 class="timeline-title-el">Check-In Unterkunft</h3><p class="timeline-desc">Blue House Warsaw – Gepäck abwerfen, Wasser trinken, nächste Challenge!</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🗺️</span><h3 class="timeline-title-el">Kurze Tour durchs Viertel</h3><p class="timeline-desc">Zeit für 1-2 Challenges.</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">19:00 Uhr</div><span class="timeline-emoji">🍽️</span><h3 class="timeline-title-el">Abendessen · Przegryz</h3><p class="timeline-desc">jak u babci</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">21:00 Uhr</div><span class="timeline-emoji">🍺</span><h3 class="timeline-title-el">Kneipentour</h3><p class="timeline-desc">Bis keiner mehr steht.</p></div>
   </div>
 
   <h3 class="day-header">Tag 2 · Samstag, 17. Mai</h3>
   <div class="timeline">
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">ab 10:00 Uhr</div><span class="timeline-emoji">☕</span><h3 class="timeline-title-el">Frühstück · Bulke przez Bibulke</h3><p class="timeline-desc">Entspanntes Frühstück ums Eck</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">ab 10:00 Uhr</div><span class="timeline-emoji">☕</span><h3 class="timeline-title-el">Frühstück · Bulke przez Bibulke</h3><p class="timeline-desc">Entspanntes Frühstück ums Eck.</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">11:00 Uhr</div><span class="timeline-emoji">🎯</span><h3 class="timeline-title-el">Schießstand oder Paintball</h3><p class="timeline-desc">TBA</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🥗</span><h3 class="timeline-title-el">Mittagessen · Hala Koszyki</h3><p class="timeline-desc">...oder pierogi auf die Hand</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🥗</span><h3 class="timeline-title-el">Mittagessen · Hala Koszyki</h3><p class="timeline-desc">...oder pierogi auf die Hand.</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">15:00 Uhr</div><span class="timeline-emoji">🚌</span><h3 class="timeline-title-el">Stadttour</h3><p class="timeline-desc">Zu Fuß, mit dem Bus oder auf 2 Rädern – Details folgen.</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🏃</span><h3 class="timeline-title-el">Adventure Park · Tep Factor</h3><p class="timeline-desc">mal sehen ob noch Zeit dafür ist, vllt auch nur Stadttour</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">19:00 Uhr</div><span class="timeline-emoji">🍕</span><h3 class="timeline-title-el">Abendessen · Va Bene</h3><p class="timeline-desc">Was anderes als pierogi</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">21:00 Uhr</div><span class="timeline-emoji">🌃</span><h3 class="timeline-title-el">Kneipentour</h3><p class="timeline-desc">Runde 2 bitches</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🏃</span><h3 class="timeline-title-el">Adventure Park · Tep Factor</h3><p class="timeline-desc">Mal sehen ob noch Zeit dafür ist, vllt auch nur Stadttour.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">19:00 Uhr</div><span class="timeline-emoji">🍕</span><h3 class="timeline-title-el">Abendessen · Va Bene</h3><p class="timeline-desc">Was anderes als pierogi.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">21:00 Uhr</div><span class="timeline-emoji">🌃</span><h3 class="timeline-title-el">Kneipentour</h3><p class="timeline-desc">Runde 2 bitches.</p></div>
   </div>
 
   <h3 class="day-header">Tag 3 · Sonntag, 18. Mai</h3>
   <div class="timeline">
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">12:00 Uhr</div><span class="timeline-emoji">🧳</span><h3 class="timeline-title-el">Auschecken & spätes Frühstück</h3><p class="timeline-desc">Late check-out auch möglich</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🌊</span><h3 class="timeline-title-el">Entspannen an der Weichsel</h3><p class="timeline-desc">Rumgammeln bis zum Rückflug</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">12:00 Uhr</div><span class="timeline-emoji">🧳</span><h3 class="timeline-title-el">Auschecken & spätes Frühstück</h3><p class="timeline-desc">Late check-out auch möglich.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🌊</span><h3 class="timeline-title-el">Entspannen an der Weichsel</h3><p class="timeline-desc">Rumgammeln bis zum Rückflug.</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🛫</span><h3 class="timeline-title-el">Rückflug</h3><p class="timeline-desc">Fertig.</p></div>
   </div>
 </section>
@@ -412,6 +357,19 @@
   <div class="section-label">Erinnerungen</div>
   <h2 class="section-title">Die Galerie.</h2>
   <div class="gallery-grid">
+
+    <!-- =====================================================
+         BILDER EINFÜGEN – ANLEITUNG:
+         1. Lege einen Ordner "bilder/" neben diese HTML-Datei an
+         2. Kopiere deine Fotos dort rein (foto1.jpg, foto2.jpg ...)
+         3. Ersetze einen Platzhalter z.B. so:
+
+         <div class="gallery-item" onclick="openLightbox('bilder/foto1.jpg','Tag 1 – Ankunft')">
+           <img src="bilder/foto1.jpg" alt="Ankunft">
+           <div class="gallery-caption">Tag 1 – Ankunft</div>
+         </div>
+    ===================================================== -->
+
     <div class="gallery-item"><div class="gallery-placeholder"><span>📸</span><span>Hauptfoto</span></div></div>
     <div class="gallery-item"><div class="gallery-placeholder"><span>🍺</span></div></div>
     <div class="gallery-item"><div class="gallery-placeholder"><span>🎉</span></div></div>
@@ -419,15 +377,41 @@
     <div class="gallery-item"><div class="gallery-placeholder"><span>🏆</span></div></div>
     <div class="gallery-item"><div class="gallery-placeholder"><span>🌙</span></div></div>
   </div>
+  <div class="gallery-upload-hint">
+    <strong style="color:var(--cream);">📁 So fügst du Bilder ein:</strong><br>
+    1. Ordner <code>bilder/</code> im Repository anlegen & Fotos hochladen<br>
+    2. Platzhalter ersetzen durch: <code>&lt;img src="bilder/foto1.jpg" alt="..."&gt;</code><br>
+    3. Für Lightbox den <code>onclick="openLightbox(...)"</code> ergänzen – Beispiel steht im Code-Kommentar ↑
+  </div>
 </section>
 
 <footer>
   <p class="footer-title">Auf Julian. 🥂</p>
-  <p style="margin-top:1rem;">Warschau · 17.–19. Mai 2026</p>
+  <p style="margin-top:1rem;">Warschau · 16.–18. Mai 2026</p>
   <p style="margin-top:2rem; font-size:0.65rem;">Made with ❤️ von Jakob</p>
 </footer>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-caption"></div>
+</div>
+
 <script>
+  // LIGHTBOX
+  function openLightbox(src, caption) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption || '';
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
   // PASSWORT
   const PASSWORD = '1605';
   function checkPassword() {
@@ -442,8 +426,8 @@
   }
   document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
 
-  // COUNTDOWN – 17. Mai 2026
-  const JGA_DATE = new Date('2026-05-17T00:00:00');
+  // COUNTDOWN – 16. Mai 2026
+  const JGA_DATE = new Date('2026-05-16T00:00:00');
   function updateCountdown() {
     const diff = JGA_DATE - new Date();
     if (diff <= 0) {
