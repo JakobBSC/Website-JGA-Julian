@@ -237,16 +237,41 @@
 </head>
 <body>
 
-<!-- PASSWORD -->
-<div id="pw-overlay">
-  <div class="pw-box">
-    <span class="pw-icon">🍆</span>
-    <h2 class="pw-title">Nur für die Crew</h2>
-    <input class="pw-input" type="password" id="pw-input" placeholder="Passwort..." autocomplete="off" />
-    <button class="pw-btn" onclick="checkPassword()">Rein da →</button>
-    <p class="pw-error" id="pw-error"></p>
-  </div>
-</div>
+ /* PASSWORD */
+  #pw-overlay {
+    position: fixed; inset: 0; background: var(--dark); z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.6s, visibility 0.6s;
+  }
+  #pw-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .pw-box {
+    text-align: center; padding: 3rem 2.5rem;
+    border: 1px solid rgba(42,111,219,0.25); background: var(--dark3);
+    max-width: 380px; width: 90%; position: relative;
+  }
+  .pw-box::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .pw-icon svg { width: 80px; height: 80px; margin-bottom: 1rem; display: block; margin-left: auto; margin-right: auto; }
+  .pw-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--cream); margin-bottom: 1.5rem; }
+  .pw-input {
+    width: 100%; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(42,111,219,0.3); color: var(--cream);
+    font-family: 'DM Sans', sans-serif; font-size: 1rem;
+    letter-spacing: 0.25em; padding: 0.9rem 1.2rem; text-align: center;
+    outline: none; transition: border-color 0.3s; margin-bottom: 1rem;
+  }
+  .pw-input:focus { border-color: var(--accent); }
+  .pw-input::placeholder { letter-spacing: 0.1em; color: rgba(255,255,255,0.2); }
+  .pw-btn {
+    width: 100%; background: var(--accent); color: #fff; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.25em; text-transform: uppercase; padding: 0.9rem;
+    cursor: pointer; transition: background 0.3s;
+  }
+  .pw-btn:hover { background: var(--accent-light); }
+  .pw-error { margin-top: 0.8rem; font-size: 0.75rem; color: #e07070; letter-spacing: 0.1em; min-height: 1.2em; }
 
 <nav>
   <div class="nav-logo">Julian's JGA</div>
