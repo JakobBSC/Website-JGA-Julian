@@ -144,23 +144,23 @@
   .info-card a:hover { text-decoration: underline; }
 
   /* KOSTEN TRACKER */
-  .kosten-input-row { display: grid; grid-template-columns: 1fr 1fr 140px auto; gap: 0.5rem; margin-bottom: 0.8rem; align-items: center; }
-  .kosten-input { background: rgba(255,255,255,0.04); border: 1px solid rgba(42,111,219,0.25); color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; padding: 0.6rem 0.8rem; outline: none; transition: border-color 0.3s; width: 100%; }
-  .kosten-input:focus { border-color: var(--accent); }
-  .kosten-input::placeholder { color: rgba(255,255,255,0.25); }
-  .kosten-add-btn { background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; cursor: pointer; transition: background 0.3s; white-space: nowrap; height: 100%; }
-  .kosten-add-btn:hover { background: var(--accent-light); }
-  .kosten-list { margin-top: 0.8rem; }
-  .kosten-entry { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(42,111,219,0.1); font-size: 0.82rem; gap: 0.5rem; }
-  .kosten-entry-info { flex: 1; }
-  .kosten-entry-who { color: var(--accent-light); font-weight: 500; }
-  .kosten-entry-what { color: rgba(255,255,255,0.4); font-size: 0.78rem; }
-  .kosten-entry-amount { color: var(--cream); font-weight: 600; white-space: nowrap; }
-  .kosten-del { color: rgba(255,255,255,0.2); cursor: pointer; font-size: 0.9rem; background: none; border: none; padding: 0 0.2rem; transition: color 0.2s; }
-  .kosten-del:hover { color: #e07070; }
-  .kosten-total { margin-top: 1rem; font-size: 0.85rem; color: var(--cream); display: flex; justify-content: space-between; padding-top: 0.7rem; border-top: 1px solid rgba(42,111,219,0.2); }
-  .kosten-total .total-num { color: var(--accent-light); font-weight: 600; }
-  .kosten-empty { font-size: 0.8rem; color: rgba(255,255,255,0.2); padding: 0.5rem 0; }
+  .splitwise-box {
+    background: var(--dark3); border: 1px solid rgba(42,111,219,0.2);
+    padding: 2rem; margin-bottom: 0;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .splitwise-hint {
+    font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.8;
+  }
+  .splitwise-btn {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    background: var(--accent); color: #fff; text-decoration: none;
+    padding: 0.9rem 1.8rem; font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; transition: background 0.3s;
+    align-self: flex-start; border: none; cursor: pointer;
+  }
+  .splitwise-btn:hover { background: var(--accent-light); }
 
   /* GALLERY */
   .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
@@ -174,8 +174,6 @@
   .gallery-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; color: rgba(255,255,255,0.15); }
   .gallery-placeholder span:first-child { font-size: 2.5rem; }
   .gallery-placeholder span:last-child { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; }
-  .gallery-upload-hint { margin-top: 1.5rem; padding: 1.2rem 1.5rem; background: var(--dark3); border: 1px dashed rgba(42,111,219,0.2); font-size: 0.8rem; color: rgba(255,255,255,0.35); line-height: 2; }
-  .gallery-upload-hint code { color: var(--accent-light); background: rgba(42,111,219,0.1); padding: 0.1rem 0.4rem; border-radius: 2px; }
 
   /* LIGHTBOX */
   #lightbox { position: fixed; inset: 0; background: rgba(9,12,18,0.97); z-index: 8888; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; cursor: zoom-out; }
@@ -199,9 +197,6 @@
     .gallery-grid { grid-template-columns: repeat(2,1fr); }
     .gallery-item:first-child { grid-column: span 2; }
     .section { padding: 5rem 1.5rem; }
-    .kosten-input-row { grid-template-columns: 1fr 1fr; }
-    .kosten-input-row .kosten-add-btn { grid-column: span 2; }
-    .kosten-input-row input:nth-child(3) { grid-column: span 2; }
   }
 </style>
 </head>
@@ -269,9 +264,9 @@
   <div class="section-label">Das Programm</div>
   <h2 class="section-title">3 Tage Warschau.</h2>
 
-  <h3 class="day-header">Tag 1 · Freitag, 16. April</h3>
+  <h3 class="day-header">Tag 1 · Freitag, 17. April</h3>
   <div class="timeline">
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">12:30 Uhr</div><span class="timeline-emoji">✈️</span><h3 class="timeline-title-el">Ankunft Flughafen Warschau & erste Challenge</h3><p class="timeline-desc">Alle landen, die erste Challenge wartet bereits.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">11:20 Uhr</div><span class="timeline-emoji">✈️</span><h3 class="timeline-title-el">Abflug Berlin BER → Warschau WAW</h3><p class="timeline-desc">Eurowings EW 5677 · Ankunft Warschau 12:35 Uhr</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🍔</span><h3 class="timeline-title-el">Mittagessen · Food Hall Browary</h3><p class="timeline-desc">piwo, pierogi i wódki.</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">16:00 Uhr</div><span class="timeline-emoji">🏠</span><h3 class="timeline-title-el">Check-In Unterkunft</h3><p class="timeline-desc">Blue House Warsaw – Gepäck abwerfen, Wasser trinken, nächste Challenge!</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🗺️</span><h3 class="timeline-title-el">Kurze Tour durchs Viertel</h3><p class="timeline-desc">Zeit für 1-2 Challenges.</p></div>
@@ -279,22 +274,21 @@
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">21:00 Uhr</div><span class="timeline-emoji">🍺</span><h3 class="timeline-title-el">Kneipentour</h3><p class="timeline-desc">Bis keiner mehr steht.</p></div>
   </div>
 
-  <h3 class="day-header">Tag 2 · Samstag, 17. April</h3>
+  <h3 class="day-header">Tag 2 · Samstag, 18. April</h3>
   <div class="timeline">
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">ab 10:00 Uhr</div><span class="timeline-emoji">☕</span><h3 class="timeline-title-el">Frühstück · Bulke przez Bibulke</h3><p class="timeline-desc">Entspanntes Frühstück ums Eck.</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">11:00 Uhr</div><span class="timeline-emoji">🎯</span><h3 class="timeline-title-el">Schießstand oder Paintball</h3><p class="timeline-desc">TBA</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🥗</span><h3 class="timeline-title-el">Mittagessen · Hala Koszyki</h3><p class="timeline-desc">...oder pierogi auf die Hand.</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">15:00 Uhr</div><span class="timeline-emoji">🚌</span><h3 class="timeline-title-el">Stadttour</h3><p class="timeline-desc">Zu Fuß, mit dem Bus oder auf 2 Rädern – Details folgen.</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🏃</span><h3 class="timeline-title-el">Adventure Park · Tep Factor</h3><p class="timeline-desc">Mal sehen ob noch Zeit dafür ist, vllt auch nur Stadttour.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">13:00 Uhr</div><span class="timeline-emoji">🎯</span><h3 class="timeline-title-el">Schießstand · PM SHOOTER</h3><p class="timeline-desc">Krakowiaków 80 A, Warsaw</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">15:00 Uhr</div><span class="timeline-emoji">🥗</span><h3 class="timeline-title-el">Mittagessen · Hala Koszyki</h3><p class="timeline-desc">...oder pierogi auf die Hand.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">16:00 Uhr</div><span class="timeline-emoji">🚌</span><h3 class="timeline-title-el">Stadttour</h3><p class="timeline-desc">Zu Fuß, mit dem Bus oder auf 2 Rädern – Details folgen.</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">19:00 Uhr</div><span class="timeline-emoji">🍕</span><h3 class="timeline-title-el">Abendessen · Va Bene</h3><p class="timeline-desc">Was anderes als pierogi.</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">21:00 Uhr</div><span class="timeline-emoji">🌃</span><h3 class="timeline-title-el">Kneipentour</h3><p class="timeline-desc">Runde 2 bitches.</p></div>
   </div>
 
-  <h3 class="day-header">Tag 3 · Sonntag, 18. April</h3>
+  <h3 class="day-header">Tag 3 · Sonntag, 19. April</h3>
   <div class="timeline">
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">12:00 Uhr</div><span class="timeline-emoji">🧳</span><h3 class="timeline-title-el">Auschecken & spätes Frühstück</h3><p class="timeline-desc">Late check-out auch möglich.</p></div>
     <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">14:00 Uhr</div><span class="timeline-emoji">🌊</span><h3 class="timeline-title-el">Entspannen an der Weichsel</h3><p class="timeline-desc">Rumgammeln bis zum Rückflug.</p></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🛫</span><h3 class="timeline-title-el">Rückflug</h3><p class="timeline-desc">Fertig.</p></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-time">17:00 Uhr</div><span class="timeline-emoji">🛫</span><h3 class="timeline-title-el">Abflug Warschau WAW → Berlin BER</h3><p class="timeline-desc">Ankunft Berlin 18:00 Uhr · Fertig.</p></div>
   </div>
 </section>
 
@@ -308,8 +302,16 @@
     <div class="info-card">
       <span class="info-card-icon">✈️</span>
       <h3>Flugdaten</h3>
-      <p>Hier die Flugdaten eintragen:<br>Flugnummer, Abflugzeit,<br>Ankunftszeit &amp; Airline.</p>
-      <p class="detail">→ Flugdaten noch nicht eingetragen</p>
+      <p>
+        <strong style="color:var(--cream);">Hinflug</strong><br>
+        BER → WAW · Fr, 17. April<br>
+        Abflug 11:20 Uhr · Ankunft 12:35 Uhr
+      </p>
+      <p style="margin-top:0.8rem;">
+        <strong style="color:var(--cream);">Rückflug</strong><br>
+        WAW → BER · So, 19. April<br>
+        Abflug 17:00 Uhr · Ankunft 18:00 Uhr
+      </p>
     </div>
     <div class="info-card">
       <span class="info-card-icon">🏠</span>
@@ -318,9 +320,9 @@
       <p class="detail"><a href="https://maps.google.com/?q=ul+Warynskiego+9,+00-655+Warszawa" target="_blank">→ In Google Maps öffnen ↗</a></p>
     </div>
     <div class="info-card">
-      <span class="info-card-icon">📍</span>
+      <span class="info-card-icon">🚬</span>
       <h3>Treffpunkt Flughafen</h3>
-      <p>Warschau Chopin Airport (WAW) – Treffen im Ankunftsbereich Terminal A, nach dem Gepäckband.</p>
+      <p>Warschau Chopin Airport (WAW) – Draußen im Raucherbereich, Warten auf Enea.</p>
       <p class="detail"><a href="https://maps.google.com/?q=Warsaw+Chopin+Airport" target="_blank">→ Flughafen auf Maps ↗</a></p>
     </div>
   </div>
@@ -332,21 +334,14 @@
 <section class="section" id="kosten">
   <div class="section-label">Finanzen</div>
   <h2 class="section-title">Wer hat was<br>bezahlt?</h2>
-  <div style="background:var(--dark3); border:1px solid rgba(42,111,219,0.12); padding:2rem;">
-    <p style="font-size:0.85rem;color:rgba(255,255,255,0.45);margin-bottom:1.5rem;line-height:1.7;">
-      Tragt hier alle Ausgaben ein, damit am Ende fair abgerechnet werden kann. Die Einträge bleiben nur solange die Seite offen ist – für dauerhafte Speicherung Screenshot machen oder in die Gruppe schreiben.
+  <div class="splitwise-box">
+    <p class="splitwise-hint">
+      Du hast die 3. Runde für Alle in Folge geschmissen? Oder Julians Taxi nach Hause spendiert?<br>
+      Trag deine finanzielle Bürde hier ein und du wirst entlastet.
     </p>
-    <div class="kosten-input-row">
-      <input class="kosten-input" id="kosten-name" placeholder="Name (wer hat bezahlt?)" />
-      <input class="kosten-input" id="kosten-desc" placeholder="Wofür? (z.B. Abendessen)" />
-      <input class="kosten-input" id="kosten-amount" placeholder="Betrag in €" type="number" min="0" step="0.01" />
-      <button class="kosten-add-btn" onclick="addKosten()">+ Hinzufügen</button>
-    </div>
-    <div id="kosten-list"><p class="kosten-empty">Noch keine Einträge.</p></div>
-    <div class="kosten-total" id="kosten-total" style="display:none;">
-      <span>Gesamtausgaben</span>
-      <span class="total-num" id="kosten-total-amount">0,00 €</span>
-    </div>
+    <a class="splitwise-btn" href="https://www.splitwise.com/join/QdGSyDDtD3e+8zflj?v=e" target="_blank">
+      💸 Zu Splitwise →
+    </a>
   </div>
 </section>
 
@@ -357,19 +352,6 @@
   <div class="section-label">Erinnerungen</div>
   <h2 class="section-title">Die Galerie.</h2>
   <div class="gallery-grid">
-
-    <!-- =====================================================
-         BILDER EINFÜGEN – ANLEITUNG:
-         1. Lege einen Ordner "bilder/" neben diese HTML-Datei an
-         2. Kopiere deine Fotos dort rein (foto1.jpg, foto2.jpg ...)
-         3. Ersetze einen Platzhalter z.B. so:
-
-         <div class="gallery-item" onclick="openLightbox('bilder/foto1.jpg','Tag 1 – Ankunft')">
-           <img src="bilder/foto1.jpg" alt="Ankunft">
-           <div class="gallery-caption">Tag 1 – Ankunft</div>
-         </div>
-    ===================================================== -->
-
     <div class="gallery-item"><div class="gallery-placeholder"><span>📸</span><span>Hauptfoto</span></div></div>
     <div class="gallery-item"><div class="gallery-placeholder"><span>🍺</span></div></div>
     <div class="gallery-item"><div class="gallery-placeholder"><span>🎉</span></div></div>
@@ -377,12 +359,11 @@
     <div class="gallery-item"><div class="gallery-placeholder"><span>🏆</span></div></div>
     <div class="gallery-item"><div class="gallery-placeholder"><span>🌙</span></div></div>
   </div>
-
 </section>
 
 <footer>
   <p class="footer-title">Auf Julian. 🥂</p>
-  <p style="margin-top:1rem;">Warschau · 16.–18. April 2026</p>
+  <p style="margin-top:1rem;">Warschau · 17.–19. April 2026</p>
   <p style="margin-top:2rem; font-size:0.65rem;">Made with ❤️ von Jakob</p>
 </footer>
 
@@ -421,8 +402,8 @@
   }
   document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
 
-  // COUNTDOWN – 16. April 2026
-  const JGA_DATE = new Date('2026-04-16T00:00:00');
+  // COUNTDOWN – 17. April 2026
+  const JGA_DATE = new Date('2026-04-17T00:00:00');
   function updateCountdown() {
     const diff = JGA_DATE - new Date();
     if (diff <= 0) {
@@ -442,48 +423,6 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.15 });
   document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
-
-  // KOSTEN TRACKER
-  let kostenList = [];
-  function addKosten() {
-    const name   = document.getElementById('kosten-name').value.trim();
-    const desc   = document.getElementById('kosten-desc').value.trim();
-    const amount = parseFloat(document.getElementById('kosten-amount').value);
-    if (!name || !desc || isNaN(amount) || amount <= 0) {
-      alert('Bitte alle Felder ausfüllen und einen gültigen Betrag eingeben.');
-      return;
-    }
-    kostenList.push({ id: Date.now(), name, desc, amount });
-    ['kosten-name','kosten-desc','kosten-amount'].forEach(id => document.getElementById(id).value = '');
-    renderKosten();
-  }
-  function removeKosten(id) {
-    kostenList = kostenList.filter(k => k.id !== id);
-    renderKosten();
-  }
-  function renderKosten() {
-    const list = document.getElementById('kosten-list');
-    const totalEl = document.getElementById('kosten-total');
-    if (kostenList.length === 0) {
-      list.innerHTML = '<p class="kosten-empty">Noch keine Einträge.</p>';
-      totalEl.style.display = 'none';
-      return;
-    }
-    list.innerHTML = kostenList.map(k => `
-      <div class="kosten-entry">
-        <div class="kosten-entry-info">
-          <span class="kosten-entry-who">${k.name}</span>
-          <span style="color:rgba(255,255,255,0.3);margin:0 0.4rem;">–</span>
-          <span class="kosten-entry-what">${k.desc}</span>
-        </div>
-        <span class="kosten-entry-amount">${k.amount.toFixed(2).replace('.',',')} €</span>
-        <button class="kosten-del" onclick="removeKosten(${k.id})">✕</button>
-      </div>
-    `).join('');
-    const total = kostenList.reduce((s,k) => s + k.amount, 0);
-    document.getElementById('kosten-total-amount').textContent = total.toFixed(2).replace('.',',') + ' €';
-    totalEl.style.display = 'flex';
-  }
 </script>
 </body>
 </html>
